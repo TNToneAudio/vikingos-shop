@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05060a">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Inventario de Vikingos Shop">
+  <title>Vikingos Shop</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- ============ 1. CONECTAR CON EL SERVIDOR (solo la primera vez) ============ -->
+  <section id="pantalla-config" class="pantalla centrada" hidden>
+    <img class="logo-grande" src="img/icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
+    <h1 class="titulo-marca"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+    <p class="suave">Pegue el enlace del servidor para conectar esta aplicación con su planilla.</p>
+    <form id="form-config" class="formulario" novalidate>
+      <label for="campo-enlace">Enlace del servidor</label>
+      <input id="campo-enlace" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"
+             placeholder="https://script.google.com/macros/s/…/exec">
+      <p class="error" id="error-config" role="alert"></p>
+      <button class="btn btn-oro" type="submit">Conectar</button>
+    </form>
+  </section>
+
+  <!-- ============ 2. ENTRAR O CREAR PERFIL ============ -->
+  <section id="pantalla-acceso" class="pantalla centrada" hidden>
+    <img class="logo-grande" src="img/icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
+    <h1 class="titulo-marca"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+    <div class="pestanas" role="tablist" aria-label="Acceso">
+      <button type="button" role="tab" id="tab-entrar" aria-selected="true">Entrar</button>
+      <button type="button" role="tab" id="tab-crear" aria-selected="false">Crear perfil</button>
+    </div>
+    <form id="form-acceso" class="formulario" novalidate>
+      <label for="acc-nombre">Su nombre</label>
+      <input id="acc-nombre" type="text" maxlength="30" autocomplete="off" autocapitalize="words">
+      <label for="acc-codigo">Código de 4 dígitos</label>
+      <input id="acc-codigo" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off">
+      <div id="fila-confirmar" hidden>
+        <label for="acc-codigo2">Repita el código</label>
+        <input id="acc-codigo2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off">
+      </div>
+      <p class="ayuda" id="ayuda-acceso"></p>
+      <p class="error" id="error-acceso" role="alert"></p>
+      <button class="btn btn-oro" id="btn-acceso" type="submit">Entrar</button>
+    </form>
+    <button type="button" class="btn-texto" id="btn-cambiar-enlace">Cambiar enlace del servidor</button>
+  </section>
+
+  <!-- ============ 3. BLOQUEO CON CÓDIGO ============ -->
+  <section id="pantalla-bloqueo" class="pantalla centrada" hidden>
+    <img class="logo-grande" src="img/icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
+    <p class="saludo" id="bloqueo-saludo">Hola</p>
+    <div class="puntos" id="puntos" role="img" aria-label="Código de 4 dígitos"><i></i><i></i><i></i><i></i></div>
+    <p class="error" id="error-bloqueo" role="alert"></p>
+    <div class="teclado" id="teclado"></div>
+    <button type="button" class="btn-texto" id="btn-salir-bloqueo">No soy yo · Salir de este teléfono</button>
+  </section>
+
+  <!-- ============ 4. APLICACIÓN ============ -->
+  <main id="app" class="app" hidden>
+    <header class="cabecera">
+      <div class="marca">
+        <img src="img/logo-96.png" alt="" width="44" height="44">
+        <h1 class="titulo-marca titulo-chico"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+      </div>
+      <div class="acciones-cab">
+        <button type="button" id="btn-menu" class="icono" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="fila-estado"><button type="button" id="btn-sync" class="pastilla" aria-live="polite"></button></div>
+
+    <section class="resumen" id="resumen" aria-label="Resumen"></section>
+
+    <div class="buscador">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>
+      <input id="buscar" type="search" placeholder="Buscar producto…" autocomplete="off" aria-label="Buscar producto">
+    </div>
+
+    <nav class="pestanas pestanas-lista" role="tablist" aria-label="Secciones">
+      <button type="button" role="tab" id="tab-inventario" aria-selected="true">Inventario <span class="contador" id="cont-inv">0</span></button>
+      <button type="button" role="tab" id="tab-vendidos" aria-selected="false">Vendidos <span class="contador" id="cont-ven">0</span></button>
+    </nav>
+
+    <div id="lista" class="lista"></div>
+
+    <button type="button" id="btn-nuevo" class="fab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      Nuevo producto
+    </button>
+  </main>
+
+  <!-- ============ FORMULARIO DE PRODUCTO ============ -->
+  <dialog id="dlg-producto" class="hoja" aria-labelledby="producto-titulo">
+    <form id="form-producto" novalidate>
+      <header class="hoja-cab">
+        <h2 id="producto-titulo">Nuevo producto</h2>
+        <button type="button" class="icono" id="producto-cerrar" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </header>
+      <div class="hoja-cuerpo">
+        <div class="foto-bloque">
+          <div class="foto-vista" id="foto-vista"></div>
+          <div class="foto-botones">
+            <button type="button" class="btn btn-borde" id="btn-camara">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              Tomar foto</button>
+            <button type="button" class="btn btn-borde" id="btn-galeria">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg>
+              Galería</button>
+          </div>
+          <button type="button" class="btn-texto" id="btn-quitar-foto" hidden>Quitar foto</button>
+          <input type="file" id="in-camara" accept="image/*" capture="environment" hidden>
+          <input type="file" id="in-galeria" accept="image/*" hidden>
+        </div>
+
+        <label for="p-nombre">Nombre del producto <b class="req" aria-hidden="true">*</b></label>
+        <input id="p-nombre" type="text" maxlength="120" autocomplete="off" autocapitalize="sentences">
+
+        <div class="fila2">
+          <div id="bloque-cantidad">
+            <label for="p-cantidad">Cantidad <b class="req" aria-hidden="true">*</b></label>
+            <input id="p-cantidad" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off">
+          </div>
+          <div>
+            <label for="p-precio">Precio por unidad (Bs) <b class="req" aria-hidden="true">*</b></label>
+            <input id="p-precio" type="text" inputmode="decimal" maxlength="12" autocomplete="off">
+          </div>
+        </div>
+        <p class="total-vivo" id="total-vivo" aria-live="polite"></p>
+
+        <fieldset class="chips">
+          <legend>Categoría</legend>
+          <label class="chip"><input type="radio" name="p-cat" value="Ropa"><span>Ropa</span></label>
+          <label class="chip"><input type="radio" name="p-cat" value="Cosméticos"><span>Cosméticos</span></label>
+          <label class="chip"><input type="radio" name="p-cat" value="" checked><span>Sin categoría</span></label>
+        </fieldset>
+
+        <div class="fila2">
+          <div><label for="p-talla">Talla</label><input id="p-talla" type="text" maxlength="30" autocomplete="off"></div>
+          <div><label for="p-color">Color</label><input id="p-color" type="text" maxlength="40" autocomplete="off"></div>
+        </div>
+
+        <label for="p-venta">Precio de venta (Bs)</label>
+        <input id="p-venta" type="text" inputmode="decimal" maxlength="12" autocomplete="off">
+
+        <label for="p-desc">Descripción o detalle</label>
+        <textarea id="p-desc" rows="3" maxlength="1000"></textarea>
+
+        <label class="interruptor">
+          <input type="checkbox" id="p-sinaviso">
+          <span class="pista" aria-hidden="true"></span>
+          <span>No avisar cuando quede poco stock</span>
+        </label>
+
+        <p class="meta" id="p-meta"></p>
+        <p class="error" id="error-producto" role="alert"></p>
+      </div>
+      <footer class="hoja-pie">
+        <button class="btn btn-oro btn-grande" id="btn-almacenar" type="submit">ALMACENAR</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- ============ VENTANAS EMERGENTES ============ -->
+  <dialog id="dlg-duplicado" class="modal" aria-labelledby="dup-titulo">
+    <form method="dialog">
+      <h2 id="dup-titulo">Este producto ya existe</h2>
+      <p id="dup-texto" class="suave"></p>
+      <div class="modal-botones">
+        <button type="submit" value="sumar" class="btn btn-oro" id="dup-sumar">Sumar al existente</button>
+        <button type="submit" value="crear" class="btn btn-borde">Crear de todos modos</button>
+        <button type="submit" value="cancelar" class="btn-texto">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-cantidad" class="modal" aria-labelledby="cant-titulo">
+    <form method="dialog" id="form-cantidad" novalidate>
+      <h2 id="cant-titulo">Cambiar cantidad</h2>
+      <p id="cant-texto" class="suave"></p>
+      <label for="cant-valor">Nueva cantidad</label>
+      <input id="cant-valor" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off">
+      <p class="ayuda">Si la cantidad llega a 0, el producto pasa a Vendidos.</p>
+      <p class="error" id="error-cantidad" role="alert"></p>
+      <div class="modal-botones">
+        <button type="submit" value="ok" class="btn btn-oro">Guardar</button>
+        <button type="submit" value="cancelar" class="btn-texto" formnovalidate>Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-devolver" class="modal" aria-labelledby="dev-titulo">
+    <form method="dialog" id="form-devolver" novalidate>
+      <h2 id="dev-titulo">Devolver al inventario</h2>
+      <p id="dev-texto" class="suave"></p>
+      <label for="dev-valor">¿Cuántas unidades vuelven?</label>
+      <input id="dev-valor" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off">
+      <p class="error" id="error-devolver" role="alert"></p>
+      <div class="modal-botones">
+        <button type="submit" value="ok" class="btn btn-oro">Devolver</button>
+        <button type="submit" value="cancelar" class="btn-texto" formnovalidate>Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-confirmar" class="modal" aria-labelledby="conf-titulo">
+    <form method="dialog">
+      <h2 id="conf-titulo">¿Confirmar?</h2>
+      <p id="conf-texto" class="suave"></p>
+      <div class="modal-botones">
+        <button type="submit" value="ok" class="btn btn-oro" id="conf-ok">Aceptar</button>
+        <button type="submit" value="cancelar" class="btn-texto">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-menu" class="modal" aria-labelledby="menu-titulo">
+    <form method="dialog">
+      <h2 id="menu-titulo">Menú</h2>
+      <p class="suave" id="menu-usuario"></p>
+      <div class="modal-botones">
+        <button type="submit" value="instalar" class="btn btn-borde" id="menu-instalar" hidden>Instalar aplicación</button>
+        <button type="submit" value="sincronizar" class="btn btn-borde">Sincronizar ahora</button>
+        <button type="submit" value="bloquear" class="btn btn-borde">Bloquear</button>
+        <button type="submit" value="salir" class="btn btn-borde peligro">Salir de este teléfono</button>
+        <button type="submit" value="cerrar" class="btn-texto">Cerrar</button>
+      </div>
+      <p class="version" id="menu-version"></p>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="datos.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
