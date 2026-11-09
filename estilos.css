@@ -4,11 +4,11 @@
    Si desea cambiar colores, modifique solo los valores de la sección :root.
    ========================================================================== */
 
-@font-face { font-family: 'Pacifico'; src: url('fonts/pacifico-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Poppins'; src: url('fonts/poppins-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Poppins'; src: url('fonts/poppins-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'Poppins'; src: url('fonts/poppins-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Poppins'; src: url('fonts/poppins-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Pacifico'; src: url('pacifico-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('poppins-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('poppins-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('poppins-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('poppins-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 
 :root {
   --negro: #05060a;

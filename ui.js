@@ -240,7 +240,7 @@
   function miniaturaHtml(p) {
     return p.miniatura
       ? '<div class="miniatura"><img src="' + esc(p.miniatura) + '" alt="Foto de ' + esc(p.nombre) + '"></div>'
-      : '<div class="miniatura sin-foto"><img src="img/logo-96.png" alt="" ></div>';
+      : '<div class="miniatura sin-foto"><img src="logo-96.png" alt="" ></div>';
   }
 
   function lineaDetalle(p) {
@@ -335,7 +335,7 @@
       const vacio = q ? 'No hay productos que coincidan con la búsqueda.'
         : pestana === 'inventario' ? 'Aún no hay productos. Toque «Nuevo producto» para almacenar el primero.'
         : 'Cuando un producto se agote, aparecerá aquí.';
-      lista.innerHTML = '<div class="vacio-lista"><img src="img/logo-96.png" alt=""><p>' + esc(vacio) + '</p></div>';
+      lista.innerHTML = '<div class="vacio-lista"><img src="logo-96.png" alt=""><p>' + esc(vacio) + '</p></div>';
     } else {
       lista.innerHTML = filtrados.map(pestana === 'inventario' ? tarjetaInventario : tarjetaVendido).join('');
     }
@@ -454,7 +454,7 @@
   function pintarFoto() {
     const caja = $('foto-vista');
     if (F.fotoVista) { caja.className = 'foto-vista'; caja.innerHTML = '<img src="' + esc(F.fotoVista) + '" alt="Vista previa de la foto">'; }
-    else { caja.className = 'foto-vista vacia'; caja.innerHTML = '<img src="img/logo-96.png" alt="Sin foto">'; }
+    else { caja.className = 'foto-vista vacia'; caja.innerHTML = '<img src="logo-96.png" alt="Sin foto">'; }
     $('btn-quitar-foto').hidden = !F.fotoVista;
   }
 

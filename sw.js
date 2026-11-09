@@ -8,13 +8,13 @@
  * IMPORTANTE: cada vez que cambie un archivo de la aplicación, suba también
  * este número de versión para que los teléfonos descarguen los cambios.
  */
-const VERSION = 'vikingos-shop-v1.1';
+const VERSION = 'vikingos-shop-v1.2';
 const ARCHIVOS = [
   './', 'index.html', 'estilos.css', 'datos.js', 'ui.js', 'manifest.webmanifest',
-  'fonts/pacifico-latin-400-normal.woff2',
-  'fonts/poppins-latin-400-normal.woff2', 'fonts/poppins-latin-500-normal.woff2',
-  'fonts/poppins-latin-600-normal.woff2', 'fonts/poppins-latin-700-normal.woff2',
-  'img/favicon.png', 'img/logo-96.png', 'img/icon-192.png', 'img/icon-512.png', 'img/icon-maskable-512.png'
+  'pacifico-latin-400-normal.woff2',
+  'poppins-latin-400-normal.woff2', 'poppins-latin-500-normal.woff2',
+  'poppins-latin-600-normal.woff2', 'poppins-latin-700-normal.woff2',
+  'favicon.png', 'logo-96.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'
 ];
 
 self.addEventListener('install', evento => {
