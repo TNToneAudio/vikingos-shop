@@ -1,5 +1,5 @@
 /**
- * VIKINGOS SHOP - Datos, cola de envío y sincronización
+ * DAE LEE SHOP - Datos, cola de envío y sincronización
  *
  * Este archivo no dibuja nada en pantalla. Se encarga de:
  *  1. Guardar los datos en el teléfono (para trabajar sin internet).
@@ -13,7 +13,7 @@
 'use strict';
 
 const VS = (window.VS = {});
-VS.VERSION = '1.1';
+VS.VERSION = '1.2';
 VS.LIMITE_POCO_STOCK = 2;
 
 /* ------------------------------------------------------------------

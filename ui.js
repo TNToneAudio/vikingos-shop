@@ -1,5 +1,5 @@
 /**
- * VIKINGOS SHOP - Pantallas y botones
+ * DAE LEE SHOP - Pantallas y botones
  *
  * Este archivo dibuja las pantallas y reacciona a lo que toca la persona.
  * Los datos y el envío a Google están en datos.js.
@@ -645,7 +645,7 @@
    * ====================================================================== */
   $('btn-menu').addEventListener('click', async () => {
     $('menu-usuario').textContent = 'Sesión de ' + VS.estado.perfil.usuario;
-    $('menu-version').textContent = 'Vikingos Shop · versión ' + VS.VERSION;
+    $('menu-version').textContent = 'Dae lee Shop · versión ' + VS.VERSION;
     $('menu-instalar').hidden = !instalacion;
     const accion = await abrirDialogo($('dlg-menu'));
     if (accion === 'sincronizar') { VS.estado.ultimoError = ''; VS.sincronizar(); }

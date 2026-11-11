@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#05060a">
-  <meta name="color-scheme" content="dark">
-  <meta name="description" content="Inventario de Vikingos Shop">
-  <title>Vikingos Shop</title>
+  <meta name="theme-color" content="#FAF6EE">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Inventario de Dae lee Shop">
+  <title>Dae lee Shop</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="icon-192.png">
@@ -16,22 +16,22 @@
 
   <!-- ============ 1. CONECTAR CON EL SERVIDOR (solo la primera vez) ============ -->
   <section id="pantalla-config" class="pantalla centrada" hidden>
-    <img class="logo-grande" src="icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
-    <h1 class="titulo-marca"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+    <img class="logo-grande" src="icon-192.png" alt="Logo de Dae lee Shop" width="132" height="132">
+    <h1 class="titulo-marca"><span class="nombre-a">Dae lee</span> <span class="nombre-b">Shop</span></h1>
     <p class="suave">Pegue el enlace del servidor para conectar esta aplicación con su planilla.</p>
     <form id="form-config" class="formulario" novalidate>
       <label for="campo-enlace">Enlace del servidor</label>
       <input id="campo-enlace" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"
              placeholder="https://script.google.com/macros/s/…/exec">
       <p class="error" id="error-config" role="alert"></p>
-      <button class="btn btn-oro" type="submit">Conectar</button>
+      <button class="btn btn-principal" type="submit">Conectar</button>
     </form>
   </section>
 
   <!-- ============ 2. ENTRAR O CREAR PERFIL ============ -->
   <section id="pantalla-acceso" class="pantalla centrada" hidden>
-    <img class="logo-grande" src="icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
-    <h1 class="titulo-marca"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+    <img class="logo-grande" src="icon-192.png" alt="Logo de Dae lee Shop" width="132" height="132">
+    <h1 class="titulo-marca"><span class="nombre-a">Dae lee</span> <span class="nombre-b">Shop</span></h1>
     <div class="pestanas" role="tablist" aria-label="Acceso">
       <button type="button" role="tab" id="tab-entrar" aria-selected="true">Entrar</button>
       <button type="button" role="tab" id="tab-crear" aria-selected="false">Crear perfil</button>
@@ -47,14 +47,14 @@
       </div>
       <p class="ayuda" id="ayuda-acceso"></p>
       <p class="error" id="error-acceso" role="alert"></p>
-      <button class="btn btn-oro" id="btn-acceso" type="submit">Entrar</button>
+      <button class="btn btn-principal" id="btn-acceso" type="submit">Entrar</button>
     </form>
     <button type="button" class="btn-texto" id="btn-cambiar-enlace">Cambiar enlace del servidor</button>
   </section>
 
   <!-- ============ 3. BLOQUEO CON CÓDIGO ============ -->
   <section id="pantalla-bloqueo" class="pantalla centrada" hidden>
-    <img class="logo-grande" src="icon-192.png" alt="Logo de Vikingos Shop" width="132" height="132">
+    <img class="logo-grande" src="icon-192.png" alt="Logo de Dae lee Shop" width="132" height="132">
     <p class="saludo" id="bloqueo-saludo">Hola</p>
     <div class="puntos" id="puntos" role="img" aria-label="Código de 4 dígitos"><i></i><i></i><i></i><i></i></div>
     <p class="error" id="error-bloqueo" role="alert"></p>
@@ -67,7 +67,7 @@
     <header class="cabecera">
       <div class="marca">
         <img src="logo-96.png" alt="" width="44" height="44">
-        <h1 class="titulo-marca titulo-chico"><span class="oro">Vikingos</span> <span class="azul">Shop</span></h1>
+        <h1 class="titulo-marca titulo-chico"><span class="nombre-a">Dae lee</span> <span class="nombre-b">Shop</span></h1>
       </div>
       <div class="acciones-cab">
         <button type="button" id="btn-menu" class="icono" aria-label="Abrir menú">
@@ -166,7 +166,7 @@
         <p class="error" id="error-producto" role="alert"></p>
       </div>
       <footer class="hoja-pie">
-        <button class="btn btn-oro btn-grande" id="btn-almacenar" type="submit">ALMACENAR</button>
+        <button class="btn btn-principal btn-grande" id="btn-almacenar" type="submit">ALMACENAR</button>
       </footer>
     </form>
   </dialog>
@@ -177,7 +177,7 @@
       <h2 id="dup-titulo">Este producto ya existe</h2>
       <p id="dup-texto" class="suave"></p>
       <div class="modal-botones">
-        <button type="submit" value="sumar" class="btn btn-oro" id="dup-sumar">Sumar al existente</button>
+        <button type="submit" value="sumar" class="btn btn-principal" id="dup-sumar">Sumar al existente</button>
         <button type="submit" value="crear" class="btn btn-borde">Crear de todos modos</button>
         <button type="submit" value="cancelar" class="btn-texto">Cancelar</button>
       </div>
@@ -193,7 +193,7 @@
       <p class="ayuda">Si la cantidad llega a 0, el producto pasa a Vendidos.</p>
       <p class="error" id="error-cantidad" role="alert"></p>
       <div class="modal-botones">
-        <button type="submit" value="ok" class="btn btn-oro">Guardar</button>
+        <button type="submit" value="ok" class="btn btn-principal">Guardar</button>
         <button type="submit" value="cancelar" class="btn-texto" formnovalidate>Cancelar</button>
       </div>
     </form>
@@ -207,7 +207,7 @@
       <input id="dev-valor" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off">
       <p class="error" id="error-devolver" role="alert"></p>
       <div class="modal-botones">
-        <button type="submit" value="ok" class="btn btn-oro">Devolver</button>
+        <button type="submit" value="ok" class="btn btn-principal">Devolver</button>
         <button type="submit" value="cancelar" class="btn-texto" formnovalidate>Cancelar</button>
       </div>
     </form>
@@ -218,7 +218,7 @@
       <h2 id="conf-titulo">¿Confirmar?</h2>
       <p id="conf-texto" class="suave"></p>
       <div class="modal-botones">
-        <button type="submit" value="ok" class="btn btn-oro" id="conf-ok">Aceptar</button>
+        <button type="submit" value="ok" class="btn btn-principal" id="conf-ok">Aceptar</button>
         <button type="submit" value="cancelar" class="btn-texto">Cancelar</button>
       </div>
     </form>

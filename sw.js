@@ -1,5 +1,5 @@
 /**
- * VIKINGOS SHOP - Trabajo sin internet
+ * DAE LEE SHOP - Trabajo sin internet
  *
  * Guarda en el teléfono los archivos de la aplicación para que abra aunque
  * no haya conexión. Cuando hay internet, los actualiza en segundo plano
@@ -8,7 +8,7 @@
  * IMPORTANTE: cada vez que cambie un archivo de la aplicación, suba también
  * este número de versión para que los teléfonos descarguen los cambios.
  */
-const VERSION = 'vikingos-shop-v1.2';
+const VERSION = 'dae-lee-shop-v1.3';
 const ARCHIVOS = [
   './', 'index.html', 'estilos.css', 'datos.js', 'ui.js', 'manifest.webmanifest',
   'pacifico-latin-400-normal.woff2',
